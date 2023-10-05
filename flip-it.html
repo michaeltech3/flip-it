@@ -1,0 +1,80 @@
+<div id="text-transform-container" style="text-align: center; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+    <h3>Reverse Or Upside Down Text Generator by TechUntold</h3>
+    <h4>Write Your Text Here:</h4>
+    <form id="text-form">
+        <textarea id="text-input" name="text" rows="5" cols="50" placeholder="Type something" style="background-color: white;"></textarea>
+        <br>
+        <input type="checkbox" id="flip-checkbox" name="flip" value="flip" checked style="background-color: #aa1801; color: white; border: none; padding: 10px 20px; margin: 5px; border-radius: 4px;">
+        <label for="flip-checkbox">Flip Upside Down</label>
+        <input type="checkbox" id="reverse-checkbox" name="reverse" value="reverse" checked style="background-color: #aa1801; color: white; border: none; padding: 10px 20px; margin: 5px; border-radius: 4px;">
+        <label for="reverse-checkbox">Reverse Text</label>
+    </form>
+
+    <h4>Your Transformed Text Is Here:</h4>
+    <textarea id="output" rows="5" cols="50" readonly style="width: 100%; padding: 10px; background-color: white;"></textarea>
+    <br>
+    <button type="button" onclick="copyToClipboard()" style="background-color: #aa1801; color: white; border: none; padding: 10px 20px; margin: 5px; border-radius: 4px;">Copy Transformed Text</button>
+</div>
+
+<script>
+    // JavaScript function to apply transformations
+    function transformText() {
+        const inputElement = document.getElementById("text-input");
+        const flipCheckbox = document.getElementById("flip-checkbox");
+        const reverseCheckbox = document.getElementById("reverse-checkbox");
+        const outputElement = document.getElementById("output");
+        let text = inputElement.value;
+
+        if (flipCheckbox.checked) {
+            text = flipText(text);
+        }
+
+        if (reverseCheckbox.checked) {
+            text = reverseText(text);
+        }
+
+        outputElement.value = text;
+    }
+
+    // JavaScript function to reverse text
+    function reverseText(text) {
+        return text.split('').reverse().join('');
+    }
+
+    // JavaScript function to flip text upside down
+    function flipText(text) {
+        const upsideDownCharacters = {
+            a: 'ɐ', b: 'q', c: 'ɔ', d: 'p', e: 'ǝ', f: 'ɟ', g: 'ƃ', h: 'ɥ', i: 'ᴉ', j: 'ɾ',
+            k: 'ʞ', l: 'l', m: 'ɯ', n: 'u', o: 'o', p: 'd', q: 'b', r: 'ɹ', s: 's', t: 'ʇ',
+            u: 'n', v: 'ʌ', w: 'ʍ', x: 'x', y: 'ʎ', z: 'z',
+            A: '∀', B: '𐐒', C: 'Ⅽ', D: 'p', E: 'Ǝ', F: 'Ⅎ', G: '⅁', H: 'H', I: 'I', J: 'Ϳ',
+            K: 'Κ', L: '⅃', M: 'W', N: 'N', O: 'O', P: 'q', Q: 'Q', R: 'ɹ', S: 'S', T: '┴',
+            U: '∩', V: 'Λ', W: 'M', X: 'X', Y: 'ʎ', Z: 'Z',
+            '0': '0', '1': 'Ɩ', '2': 'ᄅ', '3': 'Ɛ', '4': 'ㄣ', '5': 'ϛ', '6': '9', '7': 'ㄥ', '8': '8', '9': '6'
+        };
+
+        const upsideDownText = text.split('').map(char => {
+            return upsideDownCharacters[char] || char;
+        }).reverse().join('');
+
+        return upsideDownText;
+    }
+
+    // JavaScript function to copy text to clipboard
+    function copyToClipboard() {
+        const outputElement = document.getElementById("output");
+        outputElement.select();
+        document.execCommand("copy");
+        alert("Transformed text copied to clipboard!");
+    }
+
+    // Add event listeners to update the transformed text as you type and when checkboxes change
+    const textInput = document.getElementById("text-input");
+    textInput.addEventListener("input", transformText);
+
+    const flipCheckbox = document.getElementById("flip-checkbox");
+    const reverseCheckbox = document.getElementById("reverse-checkbox");
+
+    flipCheckbox.addEventListener("change", transformText);
+    reverseCheckbox.addEventListener("change", transformText);
+</script>
